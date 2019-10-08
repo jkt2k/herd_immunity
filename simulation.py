@@ -123,13 +123,10 @@ class Simulation(object):
             3. Otherwise call simulation.interaction(person, random_person) and
                 increment interaction counter by 1.
             '''
-        people_to_be_infected=[]
-        people_to_die=[]
-        people_to
         for person in self.population:
             if not person.infection==None:
                 population_without_person=[] # People can't interact with themselves
-                for other_person in self.population
+                for other_person in self.population:
                     if not other_person._id==person._id and other_person.is_alive==True:
                         population_without_person.append(other_person)
                 self.interaction(person, random.sample(population_without_person, 100))
@@ -142,17 +139,21 @@ class Simulation(object):
         pass
 
     def interaction(self, person, random_people_list):
-        '''This method should be called any time two living people are selected for an
-        interaction. It assumes that only living people are passed in as parameters.
-
-        Args:
-            person1 (person): The initial infected person
-            random_person (person): The person that person1 interacts with.
-        '''
-        # Assert statements are included to make sure that only living people are passed
-        # in as params
-        assert person.is_alive == True
-        assert random_person.is_alive == True
+        for random_person in random_people_list:
+            if random_person.is_vaccinated==False:
+                if random_person.infection==None: # If they're healthy but unvaccinated
+                    dice_roll=random.uniform(0,1)
+                    if dice_roll<=self.virus.repro_rate:
+                        self.newly_infected.append(random_person)\
+                        Logger.log_interaction(person, random_person, False,False,True)
+                    else:
+                        Logger.log_interaction(person,random_person,False,False,False)
+                else:
+                    Logger.log_interaction(person, random_person, True, False, False)
+                assert person.is_alive == True
+                assert random_person.is_alive == True
+            else:
+                Logger.log_interaction(person, random_person, False, True, False)
 
         # TODO: Finish this method.
         #  The possible cases you'll need to cover are listed below:
@@ -165,7 +166,7 @@ class Simulation(object):
             #     than repro_rate, random_person's ID should be appended to
             #     Simulation object's newly_infected array, so that their .infected
             #     attribute can be changed to True at the end of the time step.
-        # TODO: Call slogger method during this method.
+        # TODO: Call logger method during this method.
         pass
 
     def _infect_newly_infected(self):
