@@ -28,7 +28,7 @@ class Logger(object):
             virus_log.write(f"Pathogen name: {virus_name}\n")
             virus_log.write(f"Pathogen mortality rate: {str(mortality_rate)}\n")
             virus_log.write(f"Pethogen reproduction rate: {str(basic_repro_num)}\n")
-            virus_log.write("=== Simulation Begins ===")
+            virus_log.write(f"=== Simulation Begins ===\n")
         virus_log.close()
         # TODO: Finish this method. This line of metadata should be tab-delimited
         # it should create the text file that we will store all logs in.
@@ -49,7 +49,19 @@ class Logger(object):
         or the other edge cases:
             "{person.ID} didn't infect {random_person.ID} because {'vaccinated' or 'already sick'} \n"
         '''
-        
+        sequence=[random_person_sick,random_person_vacc,did_infect]
+        if sequence==[False, False, True]:
+            with open(self.file_name,'a') as virus_log:
+                virus_log.write(f"{person._id} infected {random_person._id}.\n")
+        elif sequence==[False, False, False]:
+            with open(self.file_name,'a') as virus_log:
+                virus_log.write(f"{person._id} interacted with {random_person._id} but luckily did not infect them.\n")
+        elif sequence==[True, False, False]:
+            with open(self.file_name,'a') as virus_log:
+                virus_log.write(f"{person._id} interacted with {random_person._id}, who is already infected.\n")
+        elif sequence==[False, True, False]:
+            with open(self.file_name,'a') as virus_log:
+                virus_log.write(f"{person._id} interacted with {random_person._id}, who is vaccinated.\n")
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine

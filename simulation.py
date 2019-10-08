@@ -145,15 +145,15 @@ class Simulation(object):
                     dice_roll=random.uniform(0,1)
                     if dice_roll<=self.virus.repro_rate:
                         self.newly_infected.append(random_person)\
-                        Logger.log_interaction(person, random_person, False,False,True)
+                        self.logger.log_interaction(person, random_person, False,False,True)
                     else:
-                        Logger.log_interaction(person,random_person,False,False,False)
+                        self.logger.log_interaction(person,random_person,False,False,False)
                 else:
-                    Logger.log_interaction(person, random_person, True, False, False)
+                    self.logger.log_interaction(person, random_person, True, False, False)
                 assert person.is_alive == True
                 assert random_person.is_alive == True
             else:
-                Logger.log_interaction(person, random_person, False, True, False)
+                self.logger.log_interaction(person, random_person, False, True, False)
 
         # TODO: Finish this method.
         #  The possible cases you'll need to cover are listed below:
