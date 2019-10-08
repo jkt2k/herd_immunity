@@ -86,9 +86,9 @@ class Simulation(object):
         # TODO: Complete this helper method.  Returns a Boolean.
         for person in self.population:
             if person.is_alive:
-                if person.is_vaccinated==False:
-                    return False
-        return True
+                if not person.infection==None:
+                    return True
+        return False
 
     def run(self):
         ''' This method should run the simulation until all requirements for ending
@@ -102,12 +102,13 @@ class Simulation(object):
         # HINT: You may want to call the logger's log_time_step() method at the end of each time step.
         # TODO: Set this variable using a helper
         time_step_counter = 0
-        should_continue = None
+        should_continue = _simulation_should_continue
 
         while should_continue:
         # TODO: for every iteration of this loop, call self.time_step() to compute another
         # round of this simulation.
-        print('The simulation has ended after {time_step_counter} turns.'.format(time_step_counter))
+            self.time_step()
+        print(f"=== Simulation Completed After {time_step_counter} Turns ===")
         pass
 
     def time_step(self):
@@ -115,13 +116,24 @@ class Simulation(object):
         in the simulation.
 
         This includes:
-            1. 100 total interactions with a randon person for each infected person
+            1. 100 total interactions with a random person for each infected person
                 in the population
             2. If the person is dead, grab another random person from the population.
                 Since we don't interact with dead people, this does not count as an interaction.
             3. Otherwise call simulation.interaction(person, random_person) and
                 increment interaction counter by 1.
             '''
+        people_to_be_infected=[]
+        people_to_die=[]
+        people_to
+        for person in self.population:
+            if not person.infection==None:
+                
+        for person in people_to_be_infected:
+            person.infection=self.virus
+        for person in people_to_die:
+            person.is_alive=False
+            person.infection=None
         # TODO: Finish this method.
         pass
 
