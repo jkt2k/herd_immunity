@@ -1,0 +1,7 @@
+2019-10-08 11:33:04.117239
+Population size: 100
+Percentage of population vaccinated: 90
+Pathogen name: hey
+Pathogen mortality rate: 50
+Pethogen reproduction rate: 50
+=== Simulation Begins ===

@@ -60,6 +60,12 @@ class Simulation(object):
                 list: A list of Person objects.
 
         '''
+        for i in range(0,self.pop_size):
+            amt_vaccinated=int(round(self.pop_size*self.vacc_percentage))
+            if i<=amt_vaccinated:
+                vaccinated=True
+            self.population.append(Person(self.next_person_id,vaccinated,self.virus))
+            self.next_person_id+=1
         # TODO: Finish this method!  This method should be called when the simulation
         # begins, to create the population that will be used. This method should return
         # an array filled with Person objects that matches the specifications of the
@@ -78,7 +84,11 @@ class Simulation(object):
                 bool: True for simulation should continue, False if it should end.
         '''
         # TODO: Complete this helper method.  Returns a Boolean.
-        pass
+        for person in self.population:
+            if person.is_alive:
+                if person.is_vaccinated==False:
+                    return False
+        return True
 
     def run(self):
         ''' This method should run the simulation until all requirements for ending
