@@ -128,7 +128,11 @@ class Simulation(object):
         people_to
         for person in self.population:
             if not person.infection==None:
-                
+                population_without_person=[] # People can't interact with themselves
+                for other_person in self.population
+                    if not other_person._id==person._id and other_person.is_alive==True:
+                        population_without_person.append(other_person)
+                self.interaction(person, random.sample(population_without_person, 100))
         for person in people_to_be_infected:
             person.infection=self.virus
         for person in people_to_die:
@@ -137,7 +141,7 @@ class Simulation(object):
         # TODO: Finish this method.
         pass
 
-    def interaction(self, person, random_person):
+    def interaction(self, person, random_people_list):
         '''This method should be called any time two living people are selected for an
         interaction. It assumes that only living people are passed in as parameters.
 
