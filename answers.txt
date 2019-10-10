@@ -1,0 +1,14 @@
+1.
+Virus name: Ebola
+Reproduction rate: 0.70
+Mortality rate: 0.25
+Population size: 10000
+Vaccination percentage: 0.90
+Initial infected: 10
+Command I used: python3 simulation.py Ebola 0.70 0.25 10000 0.90 10
+2.
+986 people, so 9.86% of the population.
+3.
+234 people, so 2.34% of the population.
+4.
+94,505 interactions.

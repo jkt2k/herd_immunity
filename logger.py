@@ -40,15 +40,6 @@ class Logger(object):
 
     def log_interaction(self, person, random_person, random_person_sick=None,
                         random_person_vacc=None, did_infect=None):
-        '''
-        The Simulation object should use this method to log every interaction
-        a sick person has during each time step.
-
-        The format of the log should be: "{person.ID} infects {random_person.ID} \n"
-
-        or the other edge cases:
-            "{person.ID} didn't infect {random_person.ID} because {'vaccinated' or 'already sick'} \n"
-        '''
         sequence=[random_person_sick,random_person_vacc,did_infect]
         if sequence==[False, False, True]:
             with open(self.file_name,'a') as virus_log:
@@ -62,29 +53,20 @@ class Logger(object):
         elif sequence==[False, True, False]:
             with open(self.file_name,'a') as virus_log:
                 virus_log.write(f"{person._id} interacted with {random_person._id}, who is vaccinated.\n")
-        # TODO: Finish this method. Think about how the booleans passed (or not passed)
-        # represent all the possible edge cases. Use the values passed along with each person,
-        # along with whether they are sick or vaccinated when they interact to determine
-        # exactly what happened in the interaction and create a String, and write to your logfile.
-        pass
 
     def log_infection_survival(self, person, did_die_from_infection):
-        ''' The Simulation object uses this method to log the results of every
-        call of a Person object's .resolve_infection() method.
-
-        The format of the log should be:
-            "{person.ID} died from infection\n" or "{person.ID} survived infection.\n"
-        '''
-        # TODO: Finish this method. If the person survives, did_die_from_infection
-        # should be False.  Otherwise, did_die_from_infection should be True.
-        # Append the results of the infection to the logfile
-        pass
+        if did_die_from_infection==True:
+            with open(self.file_name,'a') as virus_log:
+                virus_log.write(f"{person._id} died from infection.\n")
+        else:
+            with open(self.file_name,'a') as virus_log:
+                virus_log.write(f"{person._id} survived infection.\n")
 
     def log_time_step(self, time_step_number, number_infected, number_died, total_infected, total_died):
         with open(self.file_name,'a') as virus_log:
-            virus_log.write(f"Time step {str(time_step_number)} ended, beginning {str(time_step_number + 1)}\n")
+            virus_log.write(f"Time step {str(time_step_number)} ended.\n")
             virus_log.write(f"Latest time step ({str(time_step_number)}): {str(number_infected)} infected, {str(number_died)} dead.\n")
-            virus_log.write(f"Simulation: {str(number_infected)} infected, {str(number_died)} dead.\n")
+            virus_log.write(f"Simulation: {str(total_infected)} infected, {str(total_died)} dead.\n")
 
 logger=Logger('log.txt')
 logger.write_metadata(100,90,"hey",50,50)
