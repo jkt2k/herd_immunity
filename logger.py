@@ -11,7 +11,7 @@ class Logger(object):
     def __init__(self, file_name):
         # TODO:  Finish this initialization method. The file_name passed should be the
         # full file name of the file that the logs will be written to.
-        self.file_name = os.path.dirname(os.path.realpath(__file__))+'/log.txt'
+        self.file_name=os.path.dirname(os.path.realpath(__file__))+'/'+file_name
 
     def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
                        basic_repro_num):
@@ -27,7 +27,7 @@ class Logger(object):
             virus_log.write(f"Percentage of population vaccinated: {str(vacc_percentage)}\n")
             virus_log.write(f"Pathogen name: {virus_name}\n")
             virus_log.write(f"Pathogen mortality rate: {str(mortality_rate)}\n")
-            virus_log.write(f"Pethogen reproduction rate: {str(basic_repro_num)}\n")
+            virus_log.write(f"Pathogen reproduction rate: {str(basic_repro_num)}\n")
             virus_log.write(f"=== Simulation Begins ===\n")
         virus_log.close()
         # TODO: Finish this method. This line of metadata should be tab-delimited
@@ -80,25 +80,11 @@ class Logger(object):
         # Append the results of the infection to the logfile
         pass
 
-    def log_time_step(self, time_step_number):
-        ''' STRETCH CHALLENGE DETAILS:
-
-        If you choose to extend this method, the format of the summary statistics logged
-        are up to you.
-
-        At minimum, it should contain:
-            The number of people that were infected during this specific time step.
-            The number of people that died on this specific time step.
-            The total number of people infected in the population, including the newly infected
-            The total number of dead, including those that died during this time step.
-
-        The format of this log should be:
-            "Time step {time_step_number} ended, beginning {time_step_number + 1}\n"
-        '''
-        # TODO: Finish this method. This method should log when a time step ends, and a
-        # new one begins.
-        # NOTE: Here is an opportunity for a stretch challenge!
-        pass
+    def log_time_step(self, time_step_number, number_infected, number_died, total_infected, total_died):
+        with open(self.file_name,'a') as virus_log:
+            virus_log.write(f"Time step {str(time_step_number)} ended, beginning {str(time_step_number + 1)}\n")
+            virus_log.write(f"Latest time step ({str(time_step_number)}): {str(number_infected)} infected, {str(number_died)} dead.\n")
+            virus_log.write(f"Simulation: {str(number_infected)} infected, {str(number_died)} dead.\n")
 
 logger=Logger('log.txt')
 logger.write_metadata(100,90,"hey",50,50)
